@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "564046250537",
+    "project_id": "mediaapplication-d7cbc",
+    "storage_bucket": "mediaapplication-d7cbc.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:564046250537:android:576d829aef630e0e7e9238",
+        "android_client_info": {
+          "package_name": "com.example.mediaapplication"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCyenuqytYbBZK_nCehWdsfWmCc-lQuxUE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
