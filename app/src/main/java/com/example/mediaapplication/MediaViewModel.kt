@@ -6,6 +6,7 @@ import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 
 /*class MediaViewModel(application: Application) : AndroidViewModel(application) {
@@ -64,14 +65,34 @@ class MediaViewModel(application: Application) : AndroidViewModel(application) {
     private val mediaDao = MediaDatabase.getDatabase(application).mediaDao()
 
     private val _mediaList = MutableStateFlow<List<Media>>(emptyList())
-    val mediaList: StateFlow<List<Media>> = _mediaList
+    val mediaList: StateFlow<List<Media>> = _mediaList.asStateFlow()
 
-    fun insertMedia(uri: String, type: String) {
+    init {
+        getAllMedia() // Load existing media initially
+    }
+
+  /*  fun insertMedia(uri: String, type: String) {
         viewModelScope.launch(Dispatchers.IO) {
             mediaDao.insertMedia(Media(uri = uri, type = type))
             _mediaList.value = mediaDao.getAllMedia() // Fetch updated data
         }
+    }*/
+
+    fun insertMedia(uri: String, type: String) {
+        viewModelScope.launch(Dispatchers.IO) {
+            mediaDao.insertMedia(Media(uri = uri, type = type))
+            getAllMedia() // Refresh the list after insertion
+        }
     }
+
+
+ /*   fun getAllMedia() {
+        viewModelScope.launch(Dispatchers.IO) {
+            _mediaList.value = mediaDao.getAllMedia()
+        }
+    }*/
+
+
 
     fun getAllMedia() {
         viewModelScope.launch(Dispatchers.IO) {

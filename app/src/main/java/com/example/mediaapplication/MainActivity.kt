@@ -89,6 +89,10 @@ fun MediaPickerScreen(viewModel: MediaViewModel) {
     val context = LocalContext.current
     val mediaList by viewModel.mediaList.collectAsState()
 
+    LaunchedEffect(Unit) {
+        viewModel.getAllMedia()
+    }
+
     val pickMediaLauncher = rememberLauncherForActivityResult(
         contract = ActivityResultContracts.StartActivityForResult()
     ) { result ->
