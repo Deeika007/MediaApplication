@@ -8,6 +8,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 /*class MediaViewModel(application: Application) : AndroidViewModel(application) {
 
@@ -36,10 +37,12 @@ import kotlinx.coroutines.launch
 
 
 
+/*
 class MediaViewModel(application: Application) : AndroidViewModel(application) {
 
-
-  /*  private val repository = Repository(application)
+    private val repository = Repository(application)
+  */
+/*  private val repository = Repository(application)
 
     fun insertMedia(uri: String, type: String) {
         viewModelScope.launch {
@@ -59,7 +62,8 @@ class MediaViewModel(application: Application) : AndroidViewModel(application) {
             repository.deleteMedia(id)
         }
     }
-}*/
+}*//*
+
 
 
     private val mediaDao = MediaDatabase.getDatabase(application).mediaDao()
@@ -71,12 +75,14 @@ class MediaViewModel(application: Application) : AndroidViewModel(application) {
         getAllMedia() // Load existing media initially
     }
 
-  /*  fun insertMedia(uri: String, type: String) {
+  */
+/*  fun insertMedia(uri: String, type: String) {
         viewModelScope.launch(Dispatchers.IO) {
             mediaDao.insertMedia(Media(uri = uri, type = type))
             _mediaList.value = mediaDao.getAllMedia() // Fetch updated data
         }
-    }*/
+    }*//*
+
 
     fun insertMedia(uri: String, type: String) {
         viewModelScope.launch(Dispatchers.IO) {
@@ -86,17 +92,67 @@ class MediaViewModel(application: Application) : AndroidViewModel(application) {
     }
 
 
- /*   fun getAllMedia() {
+ */
+/*   fun getAllMedia() {
         viewModelScope.launch(Dispatchers.IO) {
             _mediaList.value = mediaDao.getAllMedia()
         }
-    }*/
+    }*//*
+
 
 
 
     fun getAllMedia() {
         viewModelScope.launch(Dispatchers.IO) {
             _mediaList.value = mediaDao.getAllMedia()
+        }
+    }
+
+
+    fun deleteMedia(id: Int) {
+        viewModelScope.launch {
+            repository.deleteMedia(id)
+        }
+    }
+}*/
+class MediaViewModel(application: Application) : AndroidViewModel(application) {
+
+    private val mediaDao = MediaDatabase.getDatabase(application).mediaDao()
+
+    private val _mediaList = MutableStateFlow<List<Media>>(emptyList())
+    val mediaList: StateFlow<List<Media>> = _mediaList.asStateFlow()
+
+    init {
+        getAllMedia() // Load existing media initially
+    }
+
+    fun insertMedia(uri: String, type: String) {
+        viewModelScope.launch(Dispatchers.IO) {
+            mediaDao.insertMedia(Media(uri = uri, type = type))
+            refreshMediaList() // Refresh UI safely
+        }
+    }
+
+    fun getAllMedia() {
+        viewModelScope.launch(Dispatchers.IO) {
+            val mediaItems = mediaDao.getAllMedia()
+            withContext(Dispatchers.Main) {
+                _mediaList.value = mediaItems
+            }
+        }
+    }
+
+    fun deleteMedia(id: Int) {
+        viewModelScope.launch(Dispatchers.IO) {
+            mediaDao.deleteMedia(id)
+            refreshMediaList()
+        }
+    }
+
+    private suspend fun refreshMediaList() {
+        val mediaItems = mediaDao.getAllMedia()
+        withContext(Dispatchers.Main) {
+            _mediaList.value = mediaItems
         }
     }
 }
