@@ -67,6 +67,8 @@ dependencies {
     implementation(libs.androidx.room.common)
     implementation(libs.androidx.room.ktx)
     implementation(libs.firebase.storage.ktx)
+    implementation(libs.androidx.media3.exoplayer)
+    implementation(libs.androidx.media3.ui)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
@@ -89,12 +91,6 @@ dependencies {
 
     implementation("io.coil-kt:coil-compose:2.5.0")
 
-
-    /*implementation("androidx.room:room-runtime:2.6.1")
-   // kapt("androidx.room:room-compiler:2.6.1")
-
-    // Room Kotlin Extensions and Coroutines support
-    implementation("androidx.room:room-ktx:2.6.1")*/
 
 
 }

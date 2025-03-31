@@ -25,18 +25,33 @@ data class Media(
     @PrimaryKey(autoGenerate = true)
     val id: Int = 0,
     val uri: String,
-    val type: String
+    val type: String,
+    val userId: String,
+    val name: String,
+    val size: String,
+    val created: String
+ /*   val timestamp: String*/
 ) : Parcelable {
     constructor(parcel: Parcel) : this(
         parcel.readInt(),
         parcel.readString() ?: "",
+        parcel.readString() ?: "",
+        parcel.readString() ?: "",
+        parcel.readString() ?: "",
+        parcel.readString() ?: "",
         parcel.readString() ?: ""
+
     )
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {
         parcel.writeInt(id)
         parcel.writeString(uri)
         parcel.writeString(type)
+        parcel.writeString(userId)
+        parcel.writeString(name)
+        parcel.writeString(size)
+        parcel.writeString(created)
+       /* parcel.writeString(timestamp)*/
     }
 
     override fun describeContents(): Int = 0

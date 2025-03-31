@@ -1,6 +1,7 @@
 {
   "project_info": {
     "project_number": "564046250537",
+    "firebase_url": "https://mediaapplication-d7cbc-default-rtdb.firebaseio.com",
     "project_id": "mediaapplication-d7cbc",
     "storage_bucket": "mediaapplication-d7cbc.firebasestorage.app"
   },

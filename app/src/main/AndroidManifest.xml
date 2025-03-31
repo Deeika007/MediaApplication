@@ -29,6 +29,9 @@
             android:name=".MediaScreenActivity"
             android:exported="false"/>
         <activity
+            android:name=".MediaPreviewActivity"
+            android:exported="false"/>
+        <activity
             android:name=".LoginActivity"
             android:exported="true">
             <intent-filter>
